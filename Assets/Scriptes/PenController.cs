@@ -39,21 +39,21 @@ public class PenController : MonoBehaviour
                     GameObject touchedObject = hit.transform.gameObject;
 
                     Debug.Log("Touched " + touchedObject.transform.name);
-                    if(touchedObject.transform.name=="Pen")
-                    {
-                        showLineIndicator = true;
+                   
                         Debug.Log("hit to pen");
                         if (touch.phase == TouchPhase.Began)
                         {
-                            DrageStart();
+                             if (touchedObject.transform.name == "Pen")
+                             {
+                                showLineIndicator = true;
+                                DrageStart();
+
+                             }
 
                         }
-
-                    }
                 }
             }
 
-           
             if (touch.phase == TouchPhase.Moved)
             {
                 Dragging();
