@@ -8,8 +8,12 @@ public class PenController : MonoBehaviour
     public float maxDrag ;
     public Rigidbody rb;
     public LineRenderer lr;
+    public Object PenHitter;
+    public Rigidbody rbPenHitter;
+
 
     Vector3 drageStartPos;
+    Vector3 draggingPos;
     Touch touch;
 
     bool showLineIndicator;
@@ -19,6 +23,8 @@ public class PenController : MonoBehaviour
         power = 10f;
         maxDrag = 5f;
         showLineIndicator = false;
+
+
     }
 
 
@@ -40,7 +46,7 @@ public class PenController : MonoBehaviour
 
                     Debug.Log("Touched " + touchedObject.transform.name);
                    
-                        Debug.Log("hit to pen");
+                       
                         if (touch.phase == TouchPhase.Began)
                         {
                              if (touchedObject.transform.name == "Pen")
@@ -76,31 +82,51 @@ public class PenController : MonoBehaviour
             drageStartPos.y = 1f;
             lr.positionCount = 1;
             lr.SetPosition(0, drageStartPos);
+           
         }
+       
        
     }
     void Dragging()
     {
         if (showLineIndicator)
         {
-            Vector3 draggingPos = Camera.main.ScreenToWorldPoint(touch.position);
+             draggingPos = Camera.main.ScreenToWorldPoint(touch.position);
             draggingPos.y = 1f;
             lr.positionCount = 2;
             lr.SetPosition(1, draggingPos);
+          
+            if (GameObject.Find("PenHitter(Clone)")==null)
+            {
+                Debug.Log("hitter not found 404 error");
+                Instantiate(PenHitter, new Vector3(draggingPos.x, rb.position.y, draggingPos.z), Quaternion.identity);
+                GameObject.Find("PenHitter(Clone)").GetComponent<Collider>().enabled = false;
+            }
+            else
+            {
+                GameObject.Find("PenHitter(Clone)").GetComponent<Transform>().position = new Vector3(draggingPos.x, rb.position.y+0.06f, draggingPos.z);
+            }
+           
         }
     }
     void DrageEnd()
     {
        if(showLineIndicator)
         {
+
             showLineIndicator = false;
             lr.positionCount = 0;
             Vector3 dragReleasePos = Camera.main.ScreenToWorldPoint(touch.position);
-            /* drageStartPos.y = -0.5f;*/
+           
             Vector3 force = drageStartPos - dragReleasePos;
             Vector3 clampedForce = Vector3.ClampMagnitude(force, maxDrag) * power;
-            rb.AddForceAtPosition(clampedForce, new Vector3(20, 0, 0), ForceMode.Impulse);
-            
+
+
+
+            GameObject.Find("PenHitter(Clone)").GetComponent<Collider>().enabled = true;
+
+
+            GameObject.Find("PenHitter(Clone)").GetComponent<Rigidbody>().AddForce(clampedForce,ForceMode.Impulse);
         }
             
        
