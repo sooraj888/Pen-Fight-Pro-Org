@@ -8,15 +8,16 @@ public class PenHitterScript : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log(collision.gameObject.tag);
-       
-        if (collision.gameObject.tag == "Table")
-        { 
-            Physics.IgnoreCollision(GameObject.Find("Table").GetComponent<Collider>(), GetComponent<Collider>());
-        }
 
+       
+        if (collision.gameObject.tag != "BluePen")
+        {
+            Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
+        }
         if (collision.gameObject.tag == "BluePen")
         {
             Destroy(this.gameObject);
         }
+        
     }
 }

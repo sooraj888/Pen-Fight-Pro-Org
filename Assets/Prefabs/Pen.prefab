@@ -205,10 +205,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdee63b2726a4594295a8f1fa0adafd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 10
-  maxDrag: 5
+  power: 5
+  maxDrag: 3
   rb: {fileID: 7032892522810969151}
   lr: {fileID: 9170711118600693258}
+  PenHitter: {fileID: 5392834000919410746, guid: 60e10bea0e4bef44484ddf89fd52bedc, type: 3}
+  rbPenHitter: {fileID: 1408557176814189778, guid: 60e10bea0e4bef44484ddf89fd52bedc, type: 3}
+  StopDragging: 0
 --- !u!65 &5166646962420268851
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -216,7 +219,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9170711118600693249}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 99ba589b5142c27479b35580c9784aa5, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -237,4 +240,4 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1

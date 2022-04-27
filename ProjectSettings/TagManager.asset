@@ -6,6 +6,7 @@ TagManager:
   tags:
   - BluePen
   - Table
+  - PenHitter
   layers:
   - Default
   - TransparentFX
